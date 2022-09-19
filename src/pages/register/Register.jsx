@@ -55,8 +55,8 @@ export default function Regiter() {
             <input type='password' placeholder='パスワード' className='loginInput' required minLength='6' ref={password}/>
             <input type='password' placeholder='確認用パスワード' className='loginInput' required minLength='6'/>
             <button className='loginButton' type='submit' >新規登録</button>
-            <button className='loginRegisterButton'>ログイン</button>
           </form>
+            <button className='loginRegisterButton'>ログイン</button>
         </div>
       </div>
     </div>

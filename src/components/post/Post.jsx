@@ -14,12 +14,36 @@ export default function Post({ post }) {
   const [isLiked, setIsLiked] = useState(false);
 
   const [user, setUser] = useState({});
+  
+  const [ isClickOnDocument, setIsClickOnDocument ] = useState( false )
 
+  const handleClickToggle = () => {
+    setIsClickOnDocument(prevState =>  !prevState )
+  }
+
+  // const refEle = useRef( null )
+
+  // const handleClickDocument = useRef( null )
+
+  // useEffect( () => {
+  //   handleClickDocument.current = ( e ) => {
+  //     if (!refEle.current.contains(e.target)) {
+  //       setIsClickOnDocument( false )
+  //       document.removeEventListener( 'click', handleClickDocument.current )
+  //     }
+  //   }
+  // }, [] )
+  
+  // useEffect( () => {
+  //   isClickOnDocument && document.addEventListener( 'click', handleClickDocument.current )
+  // }, [ isClickOnDocument ] )
+  
   useEffect(() => {
     const fetchUser = async () => {
-    const response = await axios.get(`/users?userId=${post.userId}`);
-    setUser(response.data);
-    }
+      const response = await axios.get(`/users?userId=${post.userId}`);
+      setUser(response.data);
+      }
+      
     fetchUser();
   }, [post.userId]);
 
@@ -27,14 +51,29 @@ export default function Post({ post }) {
   const handleLike = async () => {
     try {
       await axios.put('/posts/' + post._id + '/like', { userId: currentUser._id });
-
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
 
-    setLike(isLiked ? like - 1 : like + 1);
+    setLike(prevState => isLiked ? prevState - 1 : prevState + 1);
     setIsLiked(!isLiked);
   };
+
+  const handleMoreVert = async () => {
+    window.confirm('削除しますか？');
+    if (window.confirm) {
+    try {
+    await axios.delete('/posts/' + post._id, { userId: currentUser._id });
+    window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+    } else {
+      return
+    }
+  }
+
 
   return (
     <div className='post'>
@@ -44,7 +83,7 @@ export default function Post({ post }) {
             <Link to={`/profile/${user.username}`}>
             <img 
               src={
-                PUBLIC_FOLDER + 'person/no_avator.jpeg'
+                PUBLIC_FOLDER + 'person/noAvatar.jpeg'
               } 
               alt=''
               className='postProfileImg' 
@@ -54,7 +93,18 @@ export default function Post({ post }) {
             <span className='postDate'>{format(post.createdAt)}</span>
           </div>
         <div className='postTopRight'>
+          <button type='button' className='button' onClick={() => handleClickToggle()} style={{border: 'none', background: 'transparent', outline: 'none'}}>
           <MoreVert />
+          </button>
+          <div className="modal" style={{display: isClickOnDocument ? '' : 'none' }}>
+          <div className="modal_inner" 
+          // ref={ refEle }
+          >
+            <button className='button' onClick={() => handleMoreVert()} style={{border: 'none', background: 'transparent', outline: 'none'}}>
+              投稿を削除
+            </button>
+          </div>
+          </div>
         </div>
         </div>
         <div className='postCenter'>

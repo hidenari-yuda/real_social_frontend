@@ -49,7 +49,7 @@ export default function Share() {
         <div className='shareTop'>
           <img 
             src={
-              PUBLIC_FOLDER + 'person/no_avator.jpeg'
+              PUBLIC_FOLDER + 'person/noAvatar.jpeg'
             } 
             alt=''
             className='shareProfileImg' 

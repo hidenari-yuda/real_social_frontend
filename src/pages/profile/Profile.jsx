@@ -9,16 +9,19 @@ import { useParams } from 'react-router-dom';
 
 export default function Profile() {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER
-
   const [user, setUser] = useState({});
+  
   const username = useParams().username;
 
   useEffect(() => {
+
     const fetchUser = async () => {
-    const response = await axios.get(`/users?username=${username}`);
-    setUser(response.data);
+      const response = await axios.get(`/users?username=${username}`);
+      setUser(response.data);
     }
+
     fetchUser();
+
   }, [username]);
 
   return (
@@ -36,7 +39,7 @@ export default function Profile() {
           />
           <img 
             src={
-              PUBLIC_FOLDER + 'person/no_avator.jpeg'
+              PUBLIC_FOLDER + 'person/noAvatar.jpeg'
             } 
             alt=''
             className='profileUserImg' 

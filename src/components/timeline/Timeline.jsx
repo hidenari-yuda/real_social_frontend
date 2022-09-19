@@ -11,15 +11,18 @@ export default function Timeline({ username }) {
 
   useEffect(() => {
     const fetchPosts = async () => {
-    const response = 
-    username 
-    ? await axios.get(`/posts/profile/${username}`)
-    : await axios.get(`/posts/timeline/${user._id}`);
-    setPosts(response.data.sort((post1, post2) => {
-      return new Date(post2.createdAt) - new Date(post1.createdAt);
-    }))
+      const response = 
+        username 
+        ? await axios.get(`/posts/profile/${username}`)
+        : await axios.get(`/posts/timeline/${user._id}`);
+
+      setPosts(response.data.sort((post1, post2) => {
+        return new Date(post2.createdAt) - new Date(post1.createdAt);
+      }))
     };
+
     fetchPosts();
+
   }, [user._id, username]);
 
   return (

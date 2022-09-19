@@ -5,7 +5,7 @@ export default function Online({ user }) {
   return (
     <li className='rightbarFriend'>
     <div className='rightbarProfileContainer'>
-      <img src={PUBLIC_FOLDER + 'person/no_avator.jpeg'} alt='' className='rightbarProfileImg' />
+      <img src={PUBLIC_FOLDER + 'person/noAvatar.jpeg'} alt='' className='rightbarProfileImg' />
       <span className='rightbarOnline'></span>
     </div>
     <span className='rightbarUsername'>{user.username}</span>

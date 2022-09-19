@@ -1,7 +1,6 @@
 import React from 'react'
 import './Rightbar.css'
-import Online from '../online/Online'
-import { Users } from '../../dummyData'
+// import Online from '../online/Online'
 
 export default function Rightbar({ user }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER
@@ -12,12 +11,12 @@ export default function Rightbar({ user }) {
           <img src={PUBLIC_FOLDER +'star.png'} alt='' className='starImg' />
           <span className='eventText'><b>イベントを見る</b></span>
         </div>
-        <img src='/event.jpeg' alt='' className='eventImg' />
+        <img src={PUBLIC_FOLDER +'event.jpeg'} alt='' className='eventImg' />
         <h4 className='rightbarTitle'>オンラインの友達</h4>
         <ul className='rightbarFriendList'>
-          {Users.map((u) => (
+          {/* {user.map((u) => (
             <Online key={u.id} user={u} />
-          ))}
+          ))} */}
         </ul>
         <p className='promotionTitle'>
           プロモーション

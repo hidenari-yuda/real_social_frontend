@@ -1,12 +1,20 @@
-import React, { useContext } from 'react'
-import { Search, Chat, Notifications } from "@mui/icons-material";
+import React, { useContext, useRef } from 'react'
+import { Search, Chat, Notifications, ExitToApp } from "@mui/icons-material";
 import './Topbar.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
 
 export default function Topbar() {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const freewordRef = useRef()
+
+  const handleFreeword = (e) => {
+    e.preventDefault();
+    navigate('/search', { state: { freeword : freewordRef.current.value } })
+  }
   
   return (
     <div className='topbarContainer'>
@@ -16,19 +24,25 @@ export default function Topbar() {
         </Link>
       </div>
       <div className='topbarCenter'>
-        <div className='searchbar'>
-          <Search className='searchIcon' />
+        <form className='searchbar' onSubmit={(e) => handleFreeword(e)}>
+            <button type='submit' className='btn btn-primary' style={{border: 'none', background: 'transparent', outline: 'none'}}>
+              <Search className='searchIcon' />
+            </button>
           <input 
             type='text' 
             placeholder='探し物は何ですか？' 
             className='searchInput' 
+            ref={freewordRef}
           />
-        </div>
+        </form>
       </div>
       <div className='topbarRight'>
         <div className='topbarIconList'>
           <div className='topbarIcon'>
-            <Link to = '/chat' className='link' style={{ textDecoration: 'none', color: 'white' }}>
+            <Link 
+              to = '/chat' 
+              className='link' 
+              style={{ textDecoration: 'none', color: 'white' }}>
             <Chat />
             </Link>
             <span className='topbarIconBadge'>1</span>
@@ -38,6 +52,11 @@ export default function Topbar() {
             <Notifications />
             </Link>
             <span className='topbarIconBadge'>2</span>
+          </div>  
+          <div className='topbarIcon'>
+            <Link to = '/logout' className='link' style={{ textDecoration: 'none', color: 'white' }}>
+              <ExitToApp />
+            </Link>
           </div>  
         <Link to={`/profile/${user.username}`}>
         <img src={ PUBLIC_FOLDER + 'person/noAvatar.jpeg'} alt='' className='topbarImg' />

@@ -1,9 +1,26 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
 import './Rightbar.css'
-// import Online from '../online/Online'
+import Online from '../online/Online'
+import { AuthContext } from '../../state/AuthContext';
 
-export default function Rightbar({ user }) {
+export default function Rightbar({ userProfile }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER
+  const { user } = useContext(AuthContext);
+  const [followings, setFollowings] = useState([]);
+
+  useEffect(() => {
+    const fetchFollowings = async () => {
+      try {
+        const res = await axios.get(`/users/followings/${user._id}`);
+        setFollowings(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchFollowings();
+  }, []);
+
   const HomeRightbar = () => {
     return (
       <>
@@ -14,9 +31,9 @@ export default function Rightbar({ user }) {
         <img src={PUBLIC_FOLDER +'event.jpeg'} alt='' className='eventImg' />
         <h4 className='rightbarTitle'>オンラインの友達</h4>
         <ul className='rightbarFriendList'>
-          {/* {user.map((u) => (
+          {followings.map((u) => (
             <Online key={u.id} user={u} />
-          ))} */}
+          ))}
         </ul>
         <p className='promotionTitle'>
           プロモーション
@@ -60,46 +77,16 @@ const ProfileRightbar = () => {
           </div>
           <h4 className='rightbarTitle'>あなたの友達</h4>
           <div className='rightbarFollowings'>
+          {followings.map((u) => (
             <div className='rightbarFollowing'>
               <img 
-                src={PUBLIC_FOLDER + '/person/1.jpeg'} 
+                src={PUBLIC_FOLDER + (u.profilePicture || 'person/noAvatar.jpeg')} 
                 alt='' 
                 className='rightbarFollowingImg' 
-              />
-              <span className='rightbarFollowingName'>John Doe</span>
+                />
+              <span className='rightbarFollowingName'>u.username</span>
             </div>
-            <div className='rightbarFollowing'>
-              <img 
-                src={PUBLIC_FOLDER + '/person/1.jpeg'} 
-                alt='' 
-                className='rightbarFollowingImg' 
-              />
-              <span className='rightbarFollowingName'>John Doe</span>
-            </div>
-            <div className='rightbarFollowing'>
-              <img 
-                src={PUBLIC_FOLDER + '/person/1.jpeg'} 
-                alt='' 
-                className='rightbarFollowingImg' 
-              />
-              <span className='rightbarFollowingName'>John Doe</span>
-            </div>
-            <div className='rightbarFollowing'>
-              <img 
-                src={PUBLIC_FOLDER + '/person/1.jpeg'} 
-                alt='' 
-                className='rightbarFollowingImg' 
-              />
-              <span className='rightbarFollowingName'>John Doe</span>
-            </div>
-            <div className='rightbarFollowing'>
-              <img 
-                src={PUBLIC_FOLDER + '/person/1.jpeg'} 
-                alt='' 
-                className='rightbarFollowingImg' 
-              />
-              <span className='rightbarFollowingName'>John Doe</span>
-            </div>
+                ))}
           </div>
         </div>
       </>
@@ -109,7 +96,7 @@ const ProfileRightbar = () => {
   return (
     <div className='rightbar'>
       <div className='rightbarWrapper'>
-      {user ? <ProfileRightbar /> : <HomeRightbar />}
+      {userProfile ? <ProfileRightbar /> : <HomeRightbar />}
       </div>
     </div>
   ) 

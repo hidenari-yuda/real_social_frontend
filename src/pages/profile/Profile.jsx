@@ -52,7 +52,7 @@ export default function Profile() {
       </div>
       <div className='profileRightBottom'>
         <Timeline username='{username}' />
-        <Rightbar user={user} />
+        <Rightbar userProfile={user} />
       </div>
     </div>
     </div>

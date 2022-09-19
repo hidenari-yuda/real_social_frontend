@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../state/AuthContext';
+import React from 'react'
+import Rightbar from '../../components/rightbar/Rightbar';
+import Sidebar from '../../components/sidebar/Sidebar';
+import Timeline from '../../components/timeline/Timeline';
+import Topbar from '../../components/topbar/Topbar';
 
 export default function Notifications() {
-  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-  const { user } = useContext(AuthContext);
 
   return (
     <>

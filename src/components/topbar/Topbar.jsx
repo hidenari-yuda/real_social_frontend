@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react'
-import { Search, Chat, Notifications, ExitToApp } from "@mui/icons-material";
+import { Search, Chat, Notifications, ExitToApp, CalendarMonth } from "@mui/icons-material";
 import './Topbar.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
@@ -52,6 +52,11 @@ export default function Topbar() {
             <Notifications />
             </Link>
             <span className='topbarIconBadge'>2</span>
+          </div>  
+          <div className='topbarIcon'>
+            <Link to = '/calendar' className='link' style={{ textDecoration: 'none', color: 'white' }}>
+            <CalendarMonth />
+            </Link>
           </div>  
           <div className='topbarIcon'>
             <Link to = '/logout' className='link' style={{ textDecoration: 'none', color: 'white' }}>

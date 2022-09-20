@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './Sidebar.css'
-import { Home, Search, Notifications, MessageRounded, Bookmark, Person, Settings } from "@mui/icons-material";
+import { Home, Search, Notifications, MessageRounded, Bookmark, Person, Settings, ScreenSearchDesktop } from "@mui/icons-material";
 // import CloseFriend from '../closeFriend/CloseFriend';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
@@ -20,7 +20,13 @@ export default function Sidebar() {
           <li className='sidebarListItem'>
             <Search className='sidebarIcon' />
             <Link to = {'/search'} className='link' style={{ textDecoration: 'none', color: 'black' }}>
-            <span className='sidebarListItemText'>検索</span>
+            <span className='sidebarListItemText'>ワード検索</span>
+            </Link>
+          </li>
+          <li className='sidebarListItem'>
+            <ScreenSearchDesktop className='sidebarIcon' />
+            <Link to = {'/item_search'} className='link' style={{ textDecoration: 'none', color: 'black' }}>
+            <span className='sidebarListItemText'>商品を検索</span>
             </Link>
           </li>
           <li className='sidebarListItem'>

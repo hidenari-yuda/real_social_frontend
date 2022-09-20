@@ -11,6 +11,7 @@ import Notifications from './pages/notifications/Notifications';
 import Search from './pages/search/Search';
 import Settings from './pages/settings/Settings';
 import SearchForm from './pages/searchForm/SearchForm';
+import Calendar from './pages/calendar/Calendar';
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/search" element={user ? <Search /> : <Navigate to='/login' />} />
         <Route path="/search_form" element={user ? <SearchForm /> : <Navigate to='/login' /> } />
         <Route path="/settings" element={user ? <Settings/> : <Navigate to='/login' />} />
+        <Route path="/calendar" element={user ? <Calendar /> : <Navigate to='/login' /> } />
       </Routes>
     </Router>
   );
